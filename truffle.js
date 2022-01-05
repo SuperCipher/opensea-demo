@@ -3,11 +3,16 @@ const HDWalletProvider = require("truffle-hdwallet-provider");
 const MNEMONIC = process.env.MNEMONIC;
 const NODE_API_KEY = process.env.INFURA_KEY || process.env.ALCHEMY_KEY;
 const isInfura = !!process.env.INFURA_KEY;
+const RPCHOST = process.env.RPCHOST;
+const RPCPROVIDER = process.env.RPCPROVIDER;
+const OWNER_ADDRESS = process.env.OWNER_ADDRESS;
+
 
 const needsNodeAPI =
   process.env.npm_config_argv &&
   (process.env.npm_config_argv.includes("rinkeby") ||
-    process.env.npm_config_argv.includes("live"));
+    process.env.npm_config_argv.includes("live") ||
+    process.env.npm_config_argv.includes("regtest"));
 
 if ((!MNEMONIC || !NODE_API_KEY) && needsNodeAPI) {
   console.error("Please set a mnemonic and ALCHEMY_KEY or INFURA_KEY.");
@@ -29,6 +34,26 @@ module.exports = {
       port: 7545,
       gas: 5000000,
       network_id: "*", // Match any network id
+    },
+    regtest: {
+      host: RPCHOST,
+      port: 8545,
+      gas: 5000000,
+      // network_id: 10004, // Match any network id
+      network_id: "*", // Match any network id
+
+      // from: OWNER_ADDRESS,
+      from: "0x93E4aDd2b11b001c8b5FB836AafB860F1c1d63d5",
+      timeoutBlocks: 1000
+    },
+    moonbasealpha: {
+      provider: function () {
+        return new HDWalletProvider(MNEMONIC, RPCPROVIDER);
+      },
+      gas: 5000000,
+      network_id: 1287,
+      from: OWNER_ADDRESS,
+
     },
     rinkeby: {
       provider: function () {
