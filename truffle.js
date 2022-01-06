@@ -46,14 +46,25 @@ module.exports = {
       from: "0x93E4aDd2b11b001c8b5FB836AafB860F1c1d63d5",
       timeoutBlocks: 1000
     },
+    diamondreg: {
+      provider: function () {
+        return new HDWalletProvider(
+          MNEMONIC,
+          RPCPROVIDER,
+          1,
+          1,
+          true
+        );
+      },
+      gas: 5000000,
+      network_id: "10004",
+    },
     moonbasealpha: {
       provider: function () {
         return new HDWalletProvider(MNEMONIC, RPCPROVIDER);
       },
       gas: 5000000,
       network_id: 1287,
-      from: OWNER_ADDRESS,
-
     },
     rinkeby: {
       provider: function () {
