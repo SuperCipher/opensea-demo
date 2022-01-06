@@ -35,17 +35,6 @@ module.exports = {
       gas: 5000000,
       network_id: "*", // Match any network id
     },
-    regtest: {
-      host: RPCHOST,
-      port: 8545,
-      gas: 5000000,
-      // network_id: 10004, // Match any network id
-      network_id: "*", // Match any network id
-
-      // from: OWNER_ADDRESS,
-      from: "0x93E4aDd2b11b001c8b5FB836AafB860F1c1d63d5",
-      timeoutBlocks: 1000
-    },
     diamondreg: {
       provider: function () {
         return new HDWalletProvider(
